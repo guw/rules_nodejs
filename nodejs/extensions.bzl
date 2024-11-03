@@ -52,6 +52,7 @@ def _toolchain_extension(module_ctx):
             node_repositories = v.node_repositories,
             include_headers = v.include_headers,
             register = False,
+            incompatible_split_toolchains = v.incompatible_split_toolchains,
         )
 
 _ATTRS = {
@@ -92,6 +93,14 @@ A dictionary mapping Node.js versions to sets of hosts and their corresponding (
 You should list a node binary for every platform users have, likely Mac, Windows, and Linux.
 
 By default, if this attribute has no items, we'll use a list of all public Node.js releases.
+""",
+    ),
+    "incompatible_split_toolchains": attr.bool(
+        default = False,
+        doc = """
+When true, the the `@rules_nodejs//nodejs:runtime_toolchain_type` (formerly
+`@rules_nodejs//nodejs:toolchain_type`) toolchain type will only contain toolchains suitable for
+*_binary rule outputs. See [#3795](https://github.com/bazel-contrib/rules_nodejs/issues/3795).
 """,
     ),
 }
